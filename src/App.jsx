@@ -1,8 +1,7 @@
-
-import { Outlet } from "react-router-dom";
 import { useEffect, useState} from "react";
 import Footer from "../src/components/Footer/footer";
 import Navbar from "../src/components/Navbar/navbar";
+import { RouteList } from '../src/routes/index'; 
 import axios from "axios";
 
 function App() { 
@@ -14,7 +13,7 @@ function App() {
       <div className={`app light}`}>
         <Navbar />
         <main>
-          <Outlet />
+        <RouteList />
         </main>
         <Footer />
       </div>

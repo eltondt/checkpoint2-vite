@@ -1,20 +1,53 @@
-import styles from "../FormLogin/loginForm.module.css";
+import styles from "../LoginForm/loginForm.module.css";
+import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import axios from 'axios';
 
 const LoginForm = () => {
-  const handleSubmit = (e) => {
-    //Nesse handlesubmit você deverá usar o preventDefault,
-    //enviar os dados do formulário e enviá-los no corpo da requisição 
-    //para a rota da api que faz o login /auth
-    //lembre-se que essa rota vai retornar um Bearer Token e o mesmo deve ser salvo
-    //no localstorage para ser usado em chamadas futuras
-    //Com tudo ocorrendo corretamente, o usuário deve ser redirecionado a página principal,com react-router
-    //Lembre-se de usar um alerta para dizer se foi bem sucedido ou ocorreu um erro
+  const apiUrl = import.meta.env.VITE_REACT_API_URL;
+  const navigate = useNavigate();
+
+
+  const loginMutation = useMutation(async (credentials) => {
+    try {
+      const response = await axios.post(`${apiUrl}/auth`, credentials);
+
+      if (response.status === 200) {
+        localStorage.setItem('token', response.data.token);
+
+        return response.data;
+      } else {
+        throw new Error('Erro ao fazer login');
+      }
+    } catch (error) {
+      throw new Error('Erro ao fazer login');
+    }
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+
+    const formData = {
+      username: e.target.login.value,
+      password: e.target.password.value,
+    };
+
+
+    try {
+      const response = await loginMutation.mutateAsync(formData);
+      navigate("/home")
+
+      alert('Login bem-sucedido');
+
+
+    } catch (error) {
+      alert('Erro ao fazer login');
+    }
   };
 
   return (
     <>
-      {/* //Na linha seguinte deverá ser feito um teste se a aplicação
-        // está em dark mode e deverá utilizar o css correto */}
       <div
         className={`text-center card container ${styles.card}`}
       >
