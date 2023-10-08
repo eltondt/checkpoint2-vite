@@ -1,14 +1,18 @@
 import styles from "../Navbar/navbar.module.css";
+import { useAppContext } from "../../contexts/AppContext";
 
 const Navbar = ({ darkMode, toggleDarkMode }) => {
-
+  const { state, dispatch } = useAppContext();
+  const isDark = state.tema === "dark";
   return (
     <header className="sticky-top">
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar navbar-dark bg-dark ou navbar-light bg-light*/}
       <nav
-        className={`navbar navbar-expand-sm ${darkMode ? 'navbar-dark bg-dark' : 'navbar-light bg-light'}`}
-        aria-label="Third navbar example"        
+        className={`navbar navbar-expand-sm ${
+          isDark ? "navbar-dark bg-dark" : "navbar-light bg-light"
+        }`}
+        aria-label="Third navbar example"
       >
         <div className="container">
           {/* Ao clicar, o usuário deve ser redirecionado a home, com react-router */}
@@ -51,14 +55,16 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
               </li>
               <li className={`nav-item`}>
                 {/* Ao ser clicado, esse botão mudará a aplicação para dark mode ou light mode.
-                 Lembre-se de usar um estado no contexto para fazer essa alteração.
-                 Na linha seguinte deverá ser feito um teste se a aplicação
-                 está em dark mode e deverá utilizar o icone ☀ ou 🌙 e btn-dark ou btn-light*/}
+                Lembre-se de usar um estado no contexto para fazer essa alteração.
+                Na linha seguinte deverá ser feito um teste se a aplicação
+                está em dark mode e deverá utilizar o icone ☀ ou 🌙 e btn-dark ou btn-light*/}
                 <button
-                  className={`btn btn-light${styles.btnStyle
-                    }`}
+                  onClick={() => dispatch({ type: "MUDAR_TEMA" })}
+                  className={`btn ${isDark ? "btn-light" : "btn-dark"} ${
+                    styles.btnStyle
+                  }`}
                 >
-                  ☀ 🌙{" "}
+                  {isDark ? "☀" : "🌙" }
                 </button>
               </li>
             </ul>

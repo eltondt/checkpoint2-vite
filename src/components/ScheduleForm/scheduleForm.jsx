@@ -1,7 +1,12 @@
 import { useContext, useEffect, useState } from "react";
+import { useAppContext } from "../../contexts/AppContext";
 import styles from "../ScheduleForm/scheduleForm.module.css";
 
 const ScheduleForm = () => {
+
+  const { state } = useAppContext();
+  const isDark = state.tema === "dark";
+
   useEffect(() => {
     //Nesse useEffect, você vai fazer um fetch na api buscando TODOS os dentistas
     //e pacientes e carregar os dados em 2 estados diferentes
@@ -20,8 +25,7 @@ const ScheduleForm = () => {
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
       <div
-        className={`text-center container}`
-        }
+        className={`text-center container ${isDark && styles.cardDark}}`}
       >
         <form onSubmit={handleSubmit}>
           <div className={`row ${styles.rowSpacing}`}>
@@ -65,8 +69,8 @@ const ScheduleForm = () => {
             {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
             <button
-              className={`btn btn-light ${styles.button
-                }`}
+              className={`btn ${styles.button
+                } ${isDark ? 'btn-light' : 'btn-dark'}`}
               type="submit"
             >
               Schedule

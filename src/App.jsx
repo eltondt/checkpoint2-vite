@@ -1,19 +1,21 @@
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Footer from "../src/components/Footer/footer";
 import Navbar from "../src/components/Navbar/navbar";
-import { RouteList } from '../src/routes/index'; 
+import { RouteList } from "../src/routes/index";
 import axios from "axios";
+import { useAppContext } from "./contexts/AppContext";
 
-function App() { 
+function App() {
+  const { state } = useAppContext();
 
   return (
     <>
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar a classe dark ou light */}
-      <div className={`app light}`}>
+      <div className={`app ${state.tema}`}>
         <Navbar />
         <main>
-        <RouteList />
+          <RouteList />
         </main>
         <Footer />
       </div>

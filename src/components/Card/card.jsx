@@ -1,12 +1,16 @@
 import styles from "../Card/card.module.css";
+import { useAppContext } from "../../contexts/AppContext";
 
 const Card = () => {
+
+  const { state } = useAppContext();
+  const isDark = state.tema === "dark";
 
   return (
     <>
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
-      <div className={`card`}>
+      <div className={`card ${isDark && styles.cardDark}`}>
         <img
           className="card-img-top"
           src="/images/doctor.jpg"
