@@ -7,7 +7,7 @@ import { useAppContext } from "../../contexts/AppContext";
 const LoginForm = () => {
   const apiUrl = "https://dhodonto.ctd.academy";
   const navigate = useNavigate();
-  const { state, dispatch } = useAppContext();
+  const {state, dispatch } = useAppContext();
 
   const loginMutation = useMutation(async (credentials) => {
     try {
